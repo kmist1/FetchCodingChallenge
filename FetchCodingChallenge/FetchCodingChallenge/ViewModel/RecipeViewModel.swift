@@ -11,11 +11,30 @@ import Foundation
 class RecipeViewModel: ObservableObject {
     private var networkManager: MealsNetworkManagerProtocol
 
+    private(set) var recipe: Recipe?
+
     // MARK: Published Properties
     @Published private(set) var showProgressView: Bool = false
-    @Published private(set) var recipe: Recipe?
     @Published private(set) var errorMessage: String = ""
 
+    //MARK: Computed Properties
+    var recipeName: String {
+        return recipe?.strMeal ?? "Name Not Available"
+    }
+
+    var recipeImageUrl: String {
+        return recipe?.strMealThumb ?? ""
+    }
+
+    var recipeIngredients: [String] {
+        return getIngredientsWithMeasures()
+    }
+
+    var recipeInstruction: String {
+        return recipe?.strInstructions ?? "Instructions Not Available"
+    }
+
+    //MARK: Life cycle
     init(networkManager: MealsNetworkManagerProtocol = NetworkManager.shared) {
         self.networkManager = networkManager
     }
@@ -37,5 +56,21 @@ class RecipeViewModel: ObservableObject {
         } catch(let error) {
             errorMessage = error.localizedDescription
         }
+    }
+
+    //MARK: Private Methods
+
+    /// This method will map ingredients with given measurements and returns result in list of Strings ex. ["ingedient: measure"]
+    /// - Returns: return list of mapped ingredient with it's measurement given
+    private func getIngredientsWithMeasures() -> [String] {
+        guard let ingredients = recipe?.ingredients, let measures = recipe?.measures else { return [] }
+
+        var ingredientsList = [String]()
+
+        for i in 0..<ingredients.count {
+            ingredientsList.append("\(ingredients[i]): \(measures[i])")
+        }
+
+        return ingredientsList
     }
 }

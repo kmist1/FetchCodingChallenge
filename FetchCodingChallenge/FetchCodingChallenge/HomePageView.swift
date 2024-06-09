@@ -11,28 +11,40 @@ struct HomePageView: View {
     @ObservedObject var mealListViewModel: MealListViewModel
 
     var body: some View {
-        let columns = [
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
-        GeometryReader { proxy in
-            VStack {
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(mealListViewModel.mealList) { meal in
-                            MealItemCellView(meal: meal)
+        NavigationView {
+            let columns = [
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ]
+            GeometryReader { proxy in
+                VStack {
+                    Text("Desserts")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .fontWeight(.semibold)
+
+                    Divider()
+
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(mealListViewModel.mealList) { meal in
+                                NavigationLink(destination: MealDetailView(recipeViewModel: RecipeViewModel(), mealId: meal.id)) {
+                                    MealItemCellView(meal: meal)
+                                }
+                            }
                         }
+                        .padding()
                     }
-                    .padding()
                 }
+                .padding()
+                .onAppear(perform: {
+                    Task {
+                        await mealListViewModel.getMeals()
+                    }
+                })
             }
-            .padding()
-            .onAppear(perform: {
-                Task {
-                    await mealListViewModel.getMeals()
-                }
-            })
         }
+        .navigationTitle("Desserts")
     }
 }
 

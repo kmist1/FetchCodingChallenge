@@ -15,15 +15,13 @@ struct MealItemCellView: View {
                 image
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 120, height: 120)
                     .border(.gray, width: 2)
-                    .clipShape(.buttonBorder)
+                    .cornerRadius(5)
             } placeholder: {
-                Image("PlaceHolder")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 120, height: 120)
+                PlaceHolderImageView()
+
             }
+            .frame(width: 120, height: 120)
 
             Text("\(meal.strMeal)")
                 .font(.headline)
