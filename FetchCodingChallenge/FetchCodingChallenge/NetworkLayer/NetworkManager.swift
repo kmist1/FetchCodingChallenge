@@ -54,7 +54,11 @@ final class NetworkManager {
             throw NetworkError.decodingError(error)
         }
     }
+}
 
+// MARK: Meals Network Service
+// Concreate implementation of meals network service
+extension NetworkManager: MealsNetworkManagerProtocol {
     //MARK: Public Methods
     /// Fetch Meals data with given URL, extract meals for response data and sort it alphabetacally before returns
     /// - Parameter url: The URL of the API endpoint to fetch data from.
@@ -78,8 +82,8 @@ final class NetworkManager {
         // fetch selected Dessert Recipe
         let data: RecipeResponse = try await self.fetchData(from: url)
 
-        let recipe = data.meals
+        let recipes = data.meals
 
-        return recipe
+        return recipes
     }
 }

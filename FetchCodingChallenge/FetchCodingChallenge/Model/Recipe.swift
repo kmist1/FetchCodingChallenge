@@ -33,8 +33,8 @@ struct Recipe: Decodable, Identifiable {
     let strArea: String
     let strInstructions: String
     let strMealThumb: String
-    let ingredients: [String]
-    let measures: [String]
+    var ingredients: [String]
+    var measures: [String]
 
     enum CodingKeys: String, CodingKey {
         case id = "idMeal"
@@ -72,5 +72,9 @@ struct Recipe: Decodable, Identifiable {
             }
             return ""
         }
+
+        // filter out empty values for any ingredients and measures.
+        ingredients = ingredients.filter({ !$0.isEmpty })
+        measures = measures.filter({ !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) // ensures that strings that only contain whitespace are also removed.
     }
 }
