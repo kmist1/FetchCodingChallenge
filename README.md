@@ -45,7 +45,7 @@ To run the project, follow these steps:
 
 1. Clone the repository.
 2. Open the project in Xcode.
-3. Build and run the project using the latest version of Xcode.
+3. Build and run the project using the latest version of Xcode. required a minimum iOS 17 version to run the Application. 
 
 ## Testing
 To run the unit tests for this project:
