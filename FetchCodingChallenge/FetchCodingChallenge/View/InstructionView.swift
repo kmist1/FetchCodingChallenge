@@ -11,7 +11,7 @@ struct InstructionView: View {
     let instruction: String
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Instructions:")
+            Text("Instruction:")
                 .font(.caption)
                 .fontWeight(.bold)
                 .padding(.bottom, 5)

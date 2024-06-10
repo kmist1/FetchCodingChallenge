@@ -16,11 +16,15 @@ struct IngredientsView: View {
                 .font(.caption)
                 .fontWeight(.bold)
                 .padding(.bottom, 5)
-            ForEach(ingredients, id: \.self) { ingredient in
-                Text(ingredient)
+            if ingredients.isEmpty {
+                Text("Ingredients not Available")
                     .font(.caption2)
-                    .foregroundColor(.black)
-                    .multilineTextAlignment(.leading)
+            } else {
+                ForEach(ingredients.indices) { index in
+                    Text(ingredients[index])
+                        .font(.caption2)
+                        .multilineTextAlignment(.leading)
+                }
             }
         }
     }

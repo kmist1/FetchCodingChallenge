@@ -35,7 +35,8 @@ class RecipeViewModel: ObservableObject {
     }
 
     //MARK: Life cycle
-    init(networkManager: MealsNetworkManagerProtocol = NetworkManager.shared) {
+    init(receipe: Recipe? = nil, networkManager: MealsNetworkManagerProtocol = NetworkManager.shared) {
+        self.recipe = receipe
         self.networkManager = networkManager
     }
 
