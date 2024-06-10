@@ -17,6 +17,8 @@ final class NetworkManager {
     // Singleton Instance
     static let shared = NetworkManager()
 
+    private(set) var session = URLSession.shared
+
     // Private initializer to prevent direct creation
     private init() {}
 
@@ -35,7 +37,7 @@ final class NetworkManager {
         let response: (Data, URLResponse)
 
         do {
-            response = try await URLSession.shared.data(for: request)
+            response = try await session.data(for: request)
         } catch {
             throw NetworkError.dataRequestFailed(error)
         }
@@ -53,6 +55,14 @@ final class NetworkManager {
         } catch {
             throw NetworkError.decodingError(error)
         }
+    }
+
+
+    /// This method is intended for testing purposes, allowing you to inject a custom `URLSession`
+    /// to facilitate testing of network requests with mocked responses.
+    /// - Parameter session: The custom `URLSession` instance to be used for network requests.
+    func updateSessionForTest(session: URLSession) {
+        self.session = session
     }
 }
 

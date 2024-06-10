@@ -78,3 +78,22 @@ struct Recipe: Decodable, Identifiable {
         measures = measures.filter({ !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) // ensures that strings that only contain whitespace are also removed.
     }
 }
+
+// For Testing purpose
+extension Recipe {
+    init( id: String, strMeal: String, strCategory: String, strArea: String, strInstructions: String, strMealThumb: String, ingredients: [String], measures: [String]) {
+        self.id = id
+        self.strMeal = strMeal
+        self.strCategory = strCategory
+        self.strArea = strArea
+        self.strInstructions = strInstructions
+        self.strMealThumb = strMealThumb
+        self.ingredients = ingredients
+        self.measures = measures
+
+        // filter out empty values for any ingredients and measures.
+        self.ingredients = ingredients.filter({ !$0.isEmpty })
+        self.measures = measures.filter({ !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) // ensures that strings that only contain whitespace are also removed.
+    }
+}
+
