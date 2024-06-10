@@ -33,9 +33,6 @@
             reference = "container:FetchCodingChallengeTests"
             default = "YES">
          </TestPlanReference>
-         <TestPlanReference
-            reference = "container:FetchCodingChallengeTests/TestPlan.xctestplan">
-         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
