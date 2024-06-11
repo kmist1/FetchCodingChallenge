@@ -37,7 +37,11 @@ struct MealDetailView: View {
                 await recipeViewModel.getRecipes(for: mealId)
             }
         })
-
+        .alert(isPresented: $recipeViewModel.shouldShowError, content: {
+            Alert(title: Text("Something is Wrong!"), message: Text(recipeViewModel.errorMessage), dismissButton: .cancel({
+                recipeViewModel.shouldShowError.toggle()
+            }))
+        })
     }
 }
 

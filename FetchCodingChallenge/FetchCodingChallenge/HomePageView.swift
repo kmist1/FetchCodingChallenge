@@ -42,6 +42,10 @@ struct HomePageView: View {
                         await mealListViewModel.getMeals()
                     }
                 })
+                .alert(isPresented: $mealListViewModel.shouldShowError, content: {
+                    Alert(title: Text("Something is Wrong!"), message: Text(mealListViewModel.errorMessage), dismissButton: .cancel({ mealListViewModel.shouldShowError.toggle()
+                    }))
+                })
             }
         }
         .navigationTitle("Desserts")

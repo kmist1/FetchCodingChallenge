@@ -16,6 +16,7 @@ class RecipeViewModel: ObservableObject {
     // MARK: Published Properties
     @Published private(set) var showProgressView: Bool = false
     @Published private(set) var errorMessage: String = ""
+    @Published var shouldShowError: Bool = false
 
     //MARK: Computed Properties
     var recipeName: String {
@@ -55,6 +56,7 @@ class RecipeViewModel: ObservableObject {
             recipe = recipes.first
             showProgressView = false
         } catch(let error) {
+            shouldShowError = true
             errorMessage = error.localizedDescription
         }
     }

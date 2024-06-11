@@ -15,6 +15,7 @@ class MealListViewModel: ObservableObject {
     @Published private(set) var showProgressView: Bool = false
     @Published private(set) var mealList: [Meal] = []
     @Published private(set) var errorMessage: String = ""
+    @Published var shouldShowError: Bool = false
 
     init(networkManager: MealsNetworkManagerProtocol = NetworkManager.shared) {
         self.networkManager = networkManager
@@ -32,6 +33,7 @@ class MealListViewModel: ObservableObject {
             showProgressView = false
         } catch(let error) {
             errorMessage = error.localizedDescription
+            shouldShowError = true
         }
     }
 }
