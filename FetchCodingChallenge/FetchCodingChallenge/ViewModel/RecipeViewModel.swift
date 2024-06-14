@@ -56,8 +56,9 @@ class RecipeViewModel: ObservableObject {
             recipe = recipes.first
             showProgressView = false
         } catch(let error) {
+            let networkError = error as! NetworkError
             shouldShowError = true
-            errorMessage = error.localizedDescription
+            errorMessage = networkError.localizedDescription
         }
     }
 

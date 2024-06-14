@@ -32,7 +32,8 @@ class MealListViewModel: ObservableObject {
             mealList = try await networkManager.fetchMeals(with: mealsEndpoint)
             showProgressView = false
         } catch(let error) {
-            errorMessage = error.localizedDescription
+            let networkError = error as? NetworkError
+            errorMessage = networkError?.localizedDescription ?? ""
             shouldShowError = true
         }
     }
