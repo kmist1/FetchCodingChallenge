@@ -11,10 +11,8 @@ import Foundation
 class RecipeViewModel: ObservableObject {
     private var networkManager: MealsNetworkManagerProtocol
 
-    private(set) var recipe: Recipe?
-
     // MARK: Published Properties
-    @Published private(set) var showProgressView: Bool = false
+    @Published private(set) var recipe: Recipe?
     @Published private(set) var errorMessage: String = ""
     @Published var shouldShowError: Bool = false
 
@@ -48,17 +46,15 @@ class RecipeViewModel: ObservableObject {
 
         let recipeEndpoint = APIConstant.getDetailsEndpoint()
 
-        showProgressView = true
         do {
             let recipes = try await networkManager.fetchMealDetails(with: recipeEndpoint + id)
 
             // Assuming that we will have only one recipe available in list, therefore we want to extract out that recipe from list before redering it.
             recipe = recipes.first
-            showProgressView = false
         } catch(let error) {
             let networkError = error as! NetworkError
-            shouldShowError = true
             errorMessage = networkError.localizedDescription
+            shouldShowError = true
         }
     }
 
